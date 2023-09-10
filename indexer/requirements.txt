@@ -58,3 +58,5 @@ uvloop
 watchfiles
 websockets
 yarl
+# Unstructured currently supports loading of text files, powerpoints, html, pdfs, images, and more.
+unstructured[all-docs]

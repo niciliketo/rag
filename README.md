@@ -2,6 +2,7 @@
 Retrieval augmented generation
 
 ## Quick start
+Put the documents you want to RAG into the data directory
 Make sure docker compose is installed, then run
 ```bash
 docker compose up
@@ -11,3 +12,11 @@ docker compose up
 The docker compose file creates
 1. An ElasticSearch container, for storing documents
 2. A indexer container, for indexing documents
+3. An app container, to serve the API
+
+## Details on using
+Put unstructured documents in the data directory
+When docker starts, the indexer container will parse them using the langchain DirectoryLoader
+Once started, visit http://127.0.0.1:8000/docs and use the aks endpoint to start asking questions
+
+
