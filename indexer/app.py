@@ -1,37 +1,32 @@
 from fastapi import FastAPI
-from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import ElasticVectorSearch
+from fastapi.responses import FileResponse
 
-from config import openai_api_key
-
-embedding = OpenAIEmbeddings(openai_api_key=openai_api_key)
-
-db = ElasticVectorSearch(
-    elasticsearch_url="http://elasticsearch:9200",
-    index_name="elastic-index",
-    embedding=embedding,
-)
-qa = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(temperature=0),
-    chain_type="stuff",
-    retriever=db.as_retriever(),
-)
+from index_data import index_handler
+from ask import ask_handler
+from answer_questionnaire import answer_questionnaire_handler
 
 app = FastAPI()
-
 
 @app.get("/")
 def index():
     return {
-        "message": "Make a post request to /ask to ask questions about Meditations by Marcus Aurelius"
+        "message": "Make a post request to /ask to ask questions about the data"
     }
 
+@app.get("/index_data")
+def index_data():
+    return index_handler()
 
 @app.post("/ask")
 def ask(query: str):
-    response = qa.run(query)
-    return {
-        "response": response,
-    }
+    return ask_handler(query)
+
+@app.post("/answer_questionnaires")
+def answer_questionnaires():
+    file_path = answer_questionnaire_handler()
+    return FileResponse(file_path)
+
+
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
