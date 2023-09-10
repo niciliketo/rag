@@ -9,7 +9,7 @@ from config import Paths, openai_api_key
 from config import openai_api_key
 
 def main():
-    loader = DirectoryLoader(Paths.data) # ('../', glob="**/*.md")
+    loader = DirectoryLoader(Paths.data)
     data = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
