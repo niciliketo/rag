@@ -22,15 +22,15 @@ services:
         hard: 65536
     cap_add:
       - IPC_LOCK
-  indexer:
-      container_name: example_indexer
-      build: indexer/
-      entrypoint: ["python"]
-      command: ["indexer.py"]
-      depends_on:
-        - elasticsearch
-      networks:
-        - elasticsearch_network
+  # indexer:
+  #     container_name: example_indexer
+  #     build: indexer/
+  #     entrypoint: ["python"]
+  #     command: ["indexer.py"]
+  #     depends_on:
+  #       - elasticsearch
+  #     networks:
+  #       - elasticsearch_network
   app:
       container_name: example_app
       build: indexer/

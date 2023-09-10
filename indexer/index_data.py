@@ -8,7 +8,7 @@ from langchain.document_loaders import DirectoryLoader
 from config import Paths, openai_api_key
 from config import openai_api_key
 
-def main():
+def index_handler():
     loader = DirectoryLoader(Paths.data)
     data = loader.load()
 
@@ -24,8 +24,8 @@ def main():
         elasticsearch_url="http://elasticsearch:9200",
         index_name="elastic-index",
     )
-    print(db.client.info())
+    return(db.client.info())
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#    main()

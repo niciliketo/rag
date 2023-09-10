@@ -11,6 +11,7 @@ load_dotenv()
 class Paths:
     root: Path = Path(__file__).parent
     data: Path = root / "data"
+    questionnaires: Path = root / "questionnaires"
 
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
