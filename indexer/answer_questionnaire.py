@@ -24,8 +24,8 @@ def answer_questionnaire(file_path):
   column1_index = 0  # Index of the first column (0-based)
   column2_index = 1  # Index of the second column (0-based)
 
-  # Put text in the second column when the first column is not blank
-  df.iloc[:, column2_index] = df.apply(lambda row: qa.run(row.iloc[column1_index]) if pd.notna(row.iloc[column1_index]) else row.iloc[column2_index], axis=1)
+  # Put text in the second column when the first column is not blank and the second column is blank
+  df.iloc[:, column2_index] = df.apply(lambda row: qa.run(row.iloc[column1_index]) if pd.notna(row.iloc[column1_index]) and pd.isna(row.iloc[column2_index]) else row.iloc[column2_index], axis=1)
 
   # Save the updated DataFrame back to a CSV file
   output_file_path = file_path + '_updated.csv'
