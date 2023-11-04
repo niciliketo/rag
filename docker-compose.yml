@@ -49,13 +49,19 @@ services:
   app:
       container_name: example_app
       build: indexer/
-      command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+      # command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+      command: ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0"]
       ports:
         - "8000:8000"
+        - "8888:8888"
       depends_on:
         - elasticsearch
       networks:
         - elasticsearch_network
+      volumes:
+        - ./questionnaires:/app/questionnaires
+        - ./data:/app/data
+        - ./notebooks:/app/notebooks
 networks:
   elasticsearch_network:
     driver: bridge

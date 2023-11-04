@@ -163,3 +163,5 @@ cython_debug/
 # Data goes here...
 /indexer/data/
 /indexer/questionnaires/
+# Ignore the GCP credentials file
+/indexer/*.json
