@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>React App</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-  </head>
-<body>
-    <div id="root"></div>
-
-    <script type="text/babel">
+<script type="text/babel">
       const { useState } = React;
       const API_URL = 'http://localhost:8000';  // Replace with your API URL
 
@@ -66,6 +53,3 @@
         );
       }
       ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
-</body>
-</html>
