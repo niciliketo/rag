@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from config import Paths, openai_api_key
+from config import Paths
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
