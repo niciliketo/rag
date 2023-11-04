@@ -6,12 +6,12 @@ from langchain.embeddings import VertexAIEmbeddings
 from langchain.vectorstores import ElasticVectorSearch
 
 
-embeddings = VertexAIEmbeddings()
+embedding = VertexAIEmbeddings()
 
 db = ElasticVectorSearch(
     elasticsearch_url="http://elasticsearch:9200",
     index_name="elastic-index",
-    embedding=embeddings,
+    embedding=embedding,
 )
 qa = RetrievalQA.from_chain_type(
     llm=ChatVertexAI(temperature=0),
