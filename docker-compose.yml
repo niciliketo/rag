@@ -3,7 +3,22 @@ services:
   elasticsearch:
     container_name: example_es
     image: docker.elastic.co/elasticsearch/elasticsearch:8.9.2
-    environment: ['discovery.type=single-node','xpack.security.enabled=false', 'xpack.security.enrollment.enabled=false']
+    environment:
+     # Development or testing environments where you have only one Elasticsearch node.
+     - discovery.type=single-node
+     # This option enables the security features provided by the Elastic Stack, often referred to as X-Pack.
+     # When set to true, it means that Elasticsearch is configured to use security features like authentication
+     # and authorization to secure access to data and Elasticsearch resources.
+     - xpack.security.enabled=false
+     # Enrollment is a part of Elasticsearch's security features that are typically used in environments
+     # where you need to enroll and manage Elasticsearch nodes and certificates.
+     # For example, in a cluster with Transport Layer Security (TLS) enabled, nodes may need to
+     # enroll and obtain appropriate certificates for secure communication.
+     - xpack.security.enrollment.enabled=false
+     # This setting specifies Java options for Elasticsearch. In this case, it sets the maximum heap size (-Xmx)
+     # for the Elasticsearch JVM (Java Virtual Machine) to 3 gigabytes (3g).
+     # This controls how much memory Elasticsearch can use.
+     - ES_JAVA_OPTS=-Xmx3g
     volumes:
      - es_data:/usr/share/elasticsearch/data
     ports:
