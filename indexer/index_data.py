@@ -1,12 +1,12 @@
 import os
 from langchain.document_loaders import BSHTMLLoader
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.embeddings import VertexAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import ElasticVectorSearch
 from langchain.vectorstores import ElasticsearchStore
 from langchain.document_loaders import DirectoryLoader
-from config import Paths, openai_api_key
-from config import openai_api_key
+from config import Paths
+
 
 def index_handler():
     loader = DirectoryLoader(Paths.data)
@@ -16,7 +16,7 @@ def index_handler():
         chunk_size=1000, chunk_overlap=0
     )
 
-    embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embeddings = VertexAIEmbeddings()
     documents = text_splitter.split_documents(data)
     db = ElasticVectorSearch.from_documents(
         documents,
