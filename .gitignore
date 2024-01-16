@@ -161,5 +161,7 @@ cython_debug/
 
 # Project specific ignores
 # Data goes here...
-/indexer/data/
-/indexer/questionnaires/
+/data/
+/questionnaires/
+# Ignore the GCP credentials file
+/indexer/*.json

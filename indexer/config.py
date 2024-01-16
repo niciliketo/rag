@@ -14,4 +14,3 @@ class Paths:
     questionnaires: Path = root / "questionnaires"
 
 
-openai_api_key = os.getenv("OPENAI_API_KEY")

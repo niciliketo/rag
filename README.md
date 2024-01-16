@@ -15,10 +15,17 @@ The docker compose file creates
 3. An app container, to serve the API
 
 ## Details on using
-Put unstructured documents in the data directory
-When docker starts, the indexer container will parse them using the langchain DirectoryLoader
-Once started, visit http://127.0.0.1:8000/docs and use the ask endpoint to start asking questions
-Alternatively, you can put a CSV of questions into the indexer/questionnaires folder, and call the appropriate endpoint to populate answers.
-Note that the questions must be in column 1 and answers will be added to column 2 for all non-blank rows.
+1. Add credentials to a .env file in the root directory
+```
+OPENAI_API_KEY=<api_key>
 
+```
 
+2. Put unstructured documents in the data directory
+3. When docker starts, the indexer container will parse them using the langchain DirectoryLoader
+4. Once started, visit http://127.0.0.1:8000/docs and use the ask endpoint to start asking questions
+5. Alternatively, you can put a CSV of questions into the indexer/questionnaires folder, and call the appropriate endpoint to populate answers.
+Note that the questions must be in column 1 and answers will be added to column 2 and references to column 3 for all non-blank rows.
+
+## Jupyter Notebook
+For experimenting, you can switch out the command in docker-compose.yml to run a Jupyter notebook instead of the app.

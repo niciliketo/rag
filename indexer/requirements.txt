@@ -15,6 +15,7 @@ elasticsearch
 email-validator
 fastapi[all]
 frozenlist
+google-cloud-aiplatform
 greenlet
 h11
 httpcore
@@ -24,12 +25,15 @@ idna
 itsdangerous
 jinja2
 langchain
+langchain_community
+langchain_openai
 lxml
 markupsafe
 marshmallow-enum
 marshmallow
 multidict
 mypy-extensions
+notebook
 numexpr
 numpy
 openai

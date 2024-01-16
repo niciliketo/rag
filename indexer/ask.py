@@ -1,26 +1,31 @@
+import os.path
 from fastapi import FastAPI
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import ElasticVectorSearch
+from langchain.vectorstores import ElasticsearchStore
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-from config import openai_api_key
 
-embedding = OpenAIEmbeddings(openai_api_key=openai_api_key)
+embeddings = OpenAIEmbeddings()
 
 db = ElasticVectorSearch(
     elasticsearch_url="http://elasticsearch:9200",
     index_name="elastic-index",
-    embedding=embedding,
+    embedding=embeddings,
 )
 qa = RetrievalQA.from_chain_type(
     llm=ChatOpenAI(temperature=0),
     chain_type="stuff",
     retriever=db.as_retriever(),
+    return_source_documents=True,
 )
 
 def ask_handler(query):
-    response = qa.run(query)
+    response = qa(query)
+    # Get the unique filenames as a list, to return to the user
+    sources = list(set(os.path.basename(doc.metadata['source']) for doc in response['source_documents']))
+
     return {
-        "response": response,
+        "response": response['result'],
+        "sources": sources
     }

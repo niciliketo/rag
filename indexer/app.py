@@ -1,11 +1,28 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from index_data import index_handler
 from ask import ask_handler
 from answer_questionnaire import answer_questionnaire_handler
 
 app = FastAPI()
+
+origins = [
+    "*",  # FastAPI server
+    # add more origins if needed
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def index():
