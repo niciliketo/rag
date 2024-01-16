@@ -25,6 +25,8 @@ idna
 itsdangerous
 jinja2
 langchain
+langchain_community
+langchain_openai
 lxml
 markupsafe
 marshmallow-enum

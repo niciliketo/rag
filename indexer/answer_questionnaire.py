@@ -2,9 +2,9 @@ import os
 import pandas as pd
 from config import Paths
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatVertexAI
-from langchain.embeddings import VertexAIEmbeddings
 from langchain.vectorstores import ElasticVectorSearch
+from langchain.vectorstores import ElasticsearchStore
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 def process_row(row, qa):
     column1_index = 0  # Index of the first column (0-based)
@@ -21,15 +21,15 @@ def process_row(row, qa):
     return row
 
 def answer_questionnaire(file_path):
-  embedding = VertexAIEmbeddings()
+  embeddings = OpenAIEmbeddings()
 
   db = ElasticVectorSearch(
     elasticsearch_url="http://elasticsearch:9200",
     index_name="elastic-index",
-    embedding=embedding,
+    embedding=embeddings,
   )
   qa = RetrievalQA.from_chain_type(
-    llm=ChatVertexAI(temperature=0),
+    llm=ChatOpenAI(temperature=0),
     chain_type="stuff",
     retriever=db.as_retriever(),
     return_source_documents=True,

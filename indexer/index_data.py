@@ -1,6 +1,6 @@
 import os
 from langchain.document_loaders import BSHTMLLoader
-from langchain.embeddings import VertexAIEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import ElasticVectorSearch
 from langchain.vectorstores import ElasticsearchStore
@@ -16,7 +16,7 @@ def index_handler():
         chunk_size=1000, chunk_overlap=0
     )
 
-    embeddings = VertexAIEmbeddings()
+    embeddings = OpenAIEmbeddings()
     documents = text_splitter.split_documents(data)
     db = ElasticVectorSearch.from_documents(
         documents,

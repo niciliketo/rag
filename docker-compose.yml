@@ -19,6 +19,8 @@ services:
      # for the Elasticsearch JVM (Java Virtual Machine) to 3 gigabytes (3g).
      # This controls how much memory Elasticsearch can use.
      - ES_JAVA_OPTS=-Xmx3g
+     # This prevents es going into read only mode too easily (low disk watermark error)
+     - cluster.routing.allocation.disk.threshold_enabled=false
     volumes:
      - es_data:/usr/share/elasticsearch/data
     ports:
